@@ -81,7 +81,9 @@ if [ -z "$REMOTE_IP" ]; then show_use; fi
 if [ $# -ne 1 ]; then show_use; fi
 
 if [ "$(command -v nmap)" ]; then
-    PORT=$(nmap -sT -p30000-45000 "${REMOTE_IP}" | tail -n 3 | head -n 1 | sed -r 's/([1-9][0-9]+)(\/tcp.+)/\1/')
+    echo 'Looking for wireless debugging port...'
+    #PORT=$(nmap -sT -p30000-45000 "${REMOTE_IP}" | tail -n 3 | head -n 1 | sed -r 's/([1-9][0-9]+)(\/tcp.+)/\1/')
+    PORT=$(nmap -sT -p37000-44000 "${REMOTE_IP}" | awk -F/ '/tcp open/{print $1}' )
 else
     read -rp "Enter the Wireless debugging port: " PORT
 fi
@@ -113,8 +115,8 @@ while true; do
         ;;
     2)
         if check_ssh_connection; then
-            rsync --dry-run -avhP --info=stats2 "${KEY[@]}" $WP_ARGS "${DESTINATION}""${WHATSAPP}"/ "${REMOTE_HOST}":"${INTERNAL}""${WHATSAPP}"
-            confirm_action && rsync -avhP --info=stats2 "${KEY[@]}" $WP_ARGS "${DESTINATION}""${WHATSAPP}"/ "${REMOTE_HOST}":"${INTERNAL}""${WHATSAPP}"
+            rsync --dry-run --delete -avhP --info=stats2 "${KEY[@]}" $WP_ARGS "${REMOTE_HOST}":"${INTERNAL}""${WHATSAPP}"/ "${DESTINATION}""${WHATSAPP}"
+            confirm_action && rsync --delete -avhP --info=stats2 "${KEY[@]}" $WP_ARGS "${REMOTE_HOST}":"${INTERNAL}""${WHATSAPP}"/ "${DESTINATION}""${WHATSAPP}"
         else
             print_error_message "Failed to establish SSH connection to ${REMOTE_HOST}"
         fi
