@@ -12,8 +12,6 @@ function show_use() {
     exit 1
 }
 
-if [ -z "$REMOTE_IP" ]; then show_use; fi
-
 if [ $# -ne 1 ]; then show_use; fi
 
 
@@ -42,3 +40,5 @@ while true; do
         * ) print_error_message "Invalid choice. Please try again.";;
     esac
 done
+
+#TODO ADD A SSH CONNECTION TEST
