@@ -3,7 +3,7 @@
 This collection of scripts allows you to incrementally back up the internal storage of your Android phone to your PC. All of this is made possible by the [MagiskSSH](https://gitlab.com/d4rcm4rc/MagiskSSH_releases) module created by D4rCM4rC. Please note that root access is required for using this tool. 
 
 <div style="text-align:center">
-    <img src="images/main_menu.png" alt="Main menu" />
+    <img src="images/abt_mockup.png" alt="Main menu" />
 </div>
 
 ## 🔒Prerequisites
